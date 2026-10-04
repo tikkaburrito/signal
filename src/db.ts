@@ -56,3 +56,12 @@ export async function taste(): Promise<{ liked: string[]; disliked: string[] }> 
     disliked: rows.filter((r) => r.vote === -1).map(line),
   };
 }
+
+// Public read model for the landing page: what was sent, newest first, with its net vote.
+export async function history(limit = 60) {
+  await init();
+  return sql`
+    select s.url, s.title, s.source, s.lane, s.tag, s.sent_at,
+      coalesce((select sum(f.vote) from feedback f where f.item_id = s.id), 0)::int as score
+    from sent_items s order by s.sent_at desc limit ${limit}`;
+}

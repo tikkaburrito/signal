@@ -1,6 +1,6 @@
 import { waitUntil } from '@neon/functions';
 import { runBrief } from './brief';
-import { saveVote } from './db';
+import { history, saveVote } from './db';
 import { postToSlack, verifySlack } from './slack';
 
 const run = (focus?: string) =>
@@ -13,6 +13,10 @@ const run = (focus?: string) =>
 export default {
   async fetch(request: Request) {
     const { pathname } = new URL(request.url);
+    // 0. Read-only history for the landing page (titles and links only, no secrets).
+    if (request.method === 'GET' && pathname === '/history') {
+      return Response.json(await history(), { headers: { 'access-control-allow-origin': '*' } });
+    }
     if (request.method !== 'POST') return new Response('Signal is running', { status: 200 });
 
     // 1. Scheduled or manual trigger: curl -X POST <url>/brief -H "authorization: Bearer $BRIEF_SECRET"

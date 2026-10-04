@@ -6,6 +6,8 @@ changes tomorrow's brief based on which ones you 👍 or 👎.
 
 Built on Neon's `with-mastra` starter: Mastra agent, Neon AI Gateway, Neon Postgres, Neon Functions.
 
+Landing page with live brief history: https://signal-brief-liard.vercel.app (static page in `web/`, deployed on Vercel; reads `GET /history` from the Neon function).
+
 ## How it works
 
 ```
