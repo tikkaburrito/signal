@@ -19,6 +19,7 @@ Exa (web, news, pods) ─┼─> dedupe vs. sent ─> curator agent ─> Slack b
 | --- | --- |
 | `src/profile.ts` | Who you are and what you're building. Edit this first. |
 | `src/sources/*` | One file per lane. Each returns `Candidate[]` and fails independently. |
+| `src/sources/talks.ts` | Podcasts, YC and conference talks from a fixed list of YouTube channels (public RSS, no key). |
 | `src/sources/x.ts` | What AI CEOs and influencers posted on X, found through Exa (mirrors and coverage that quotes them). |
 | `src/agent.ts` | Curator agent + the structured output schema. |
 | `src/brief.ts` | The pipeline. |

@@ -2,6 +2,7 @@ import { curator, briefSchema } from './agent';
 import { fromExa } from './sources/exa';
 import { fromYouTube } from './sources/youtube';
 import { fromX } from './sources/x';
+import { fromTalks } from './sources/talks';
 import type { Candidate } from './sources/types';
 import { itemId, saveSent, seenIds, taste } from './db';
 import { briefBlocks, postToSlack } from './slack';
@@ -9,6 +10,7 @@ import { briefBlocks, postToSlack } from './slack';
 // Add a lane = add one function here. Each source fails independently.
 const SOURCES: Record<string, () => Promise<Candidate[]>> = {
   youtube: () => fromYouTube(),
+  talks: () => fromTalks(),
   x: () => fromX(), // via Exa for now; next: logged-in browser session via Kernel
   exa: () => fromExa(),
   // newsletters: () => fromAgentMail(),
