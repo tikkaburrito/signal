@@ -41,7 +41,10 @@ export async function runBrief(focus?: string) {
       .join('\n\n')}`,
   ].filter(Boolean).join('\n\n');
 
-  const result = await curator.generate(prompt, { structuredOutput: { schema: briefSchema } });
+  // Schema goes in the prompt: the gateway's native response format dropped the required "opener".
+  const result = await curator.generate(prompt, {
+    structuredOutput: { schema: briefSchema, jsonPromptInjection: true },
+  });
   const brief = result.object;
 
   // The model returns indexes, never URLs, so a link can't be hallucinated.
