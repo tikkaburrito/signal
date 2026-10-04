@@ -1,0 +1,24 @@
+name: Daily brief
+
+on:
+  schedule:
+    - cron: '0 14 * * *' # 7:00 AM Pacific (PDT). GitHub cron is UTC.
+  workflow_dispatch:
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Trigger Signal
+        env:
+          SIGNAL_URL: ${{ secrets.SIGNAL_URL }}
+          BRIEF_SECRET: ${{ secrets.BRIEF_SECRET }}
+        run: |
+          if [ -z "$SIGNAL_URL" ] || [ -z "$BRIEF_SECRET" ]; then
+            echo "Set the SIGNAL_URL and BRIEF_SECRET repo secrets first." >&2
+            exit 1
+          fi
+          # Prints {"sent":N,"candidates":N,"failed":[...]}; any non-2xx fails the job.
+          curl --fail-with-body -sS --max-time 540 -X POST "$SIGNAL_URL/brief" \
+            -H "authorization: Bearer $BRIEF_SECRET"
