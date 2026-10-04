@@ -33,6 +33,8 @@ ${PROFILE}
 RULES
 - Pick 5 items (fewer if the pile is weak). Aim for a mix: at least 2 from "my-world" when
   available, at least 2 from "outside-my-bubble", and at least 1 genuinely positive world story.
+- Sources starting "X voices" carry what AI CEOs and influencers posted on X. Include at least 1
+  when available, and name the person in the headline.
 - Rank by usefulness to this person, not by how viral something is.
 - Only state what the candidate's title and snippet support. Never invent numbers, quotes or
   claims. If a snippet is too thin to extract a real learning, drop the candidate.
